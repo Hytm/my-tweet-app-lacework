@@ -39,7 +39,7 @@ pipeline {
             }
             steps {
                 echo 'Running Lacework vulnerability scan'
-                sh "lacework vulnerability container scan index.docker.io $DOCKER_HUB/my-tweet-app-lacework latest --poll --noninteractive --details"
+                sh "lacework vulnerability container scan index.docker.io $DOCKER_HUB/my-tweet-app-lacework latest --poll --noninteractive --details --packages"
             }
         }
     }
