@@ -19,6 +19,7 @@ pipeline {
                 sh 'echo "Hello World"'
                 sh 'wget https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v0.1.2/lw-scanner-linux-386'
                 sh 'ls -la & pwd'
+                sh 'mv ./lw-scanner-linux-386 ./lw-scanner'
                 sh 'chmod +x ./lw-scanner'
                 sh './lw-scanner version'
                 sh '''
