@@ -15,21 +15,15 @@ pipeline {
             }
         }
         stage('Lacework Vulnerability Scan with lw-scanner') {
-            environment {
-                LW_API_SECRET = credentials('lacework_api_secret')
-            }
-            agent {
-                docker { image 'securethecloud/lw-scanner:latest' 
-                         args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker'
-                       }
-            }
-             
-            when {
-                branch 'master'
-            }
             steps {
-                echo 'Running Lacework vulnerability scan'
-                sh "lw-scanner evaluate $image $tag -l /tmp/lw-scanner/logs -d /tmp/lw-scanner/data"
+                sh 'echo "Hello World"'
+                sh 'wget https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v0.1.2/lw-scanner-linux-386'
+                sh 'chmod +x ./lw-scanner'
+                sh './lw-scanner version'
+                sh '''
+                    echo "Multiline shell steps works too"
+                    ls -lah
+                '''
             }
         }
         stage('Push Docker Image') {
