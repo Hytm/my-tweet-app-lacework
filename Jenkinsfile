@@ -27,19 +27,22 @@ pipeline {
                 }
             }
         }
-        stage('Lacework Vulnerability Scan') {
+        stage('Lacework Vulnerability Scan with lw-scanner') {
             environment {
                 LW_API_SECRET = credentials('lacework_api_secret')
             }
             agent {
-                docker { image 'techallylw/lacework-cli:latest' }
+                docker { image 'techallylw/lacework-cli:latest' 
+                         args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker'
+                       }
             }
+             
             when {
                 branch 'master'
             }
             steps {
                 echo 'Running Lacework vulnerability scan'
-                sh "lacework vulnerability container scan index.docker.io $DOCKER_HUB/my-tweet-app-lacework latest --poll --noninteractive --details"
+                sh "echo hello"
             }
         }
     }
