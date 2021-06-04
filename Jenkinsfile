@@ -19,7 +19,7 @@ pipeline {
                 LW_API_SECRET = credentials('lacework_api_secret')
             }
             agent {
-                docker { image 'techallylw/lacework-cli:latest' 
+                docker { image 'securethecloud/lw-scanner:latest' 
                          args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker'
                        }
             }
@@ -29,7 +29,7 @@ pipeline {
             }
             steps {
                 echo 'Running Lacework vulnerability scan'
-                sh "echo hello"
+                sh "lw-scanner evaluate $image $tag -l /tmp/lw-scanner/logs -d /tmp/lw-scanner/data"
             }
         }
         stage('Push Docker Image') {
