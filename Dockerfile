@@ -1,5 +1,5 @@
 # Use Alpine as base
-FROM alpine:3.10
+FROM alpine:3.9
 
 # Maintainer
 MAINTAINER awilke@paloaltonetworks.com
