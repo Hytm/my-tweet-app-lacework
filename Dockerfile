@@ -2,7 +2,7 @@
 FROM alpine:3.5
 
 # Maintainer
-MAINTAINER awilke@paloaltonetworks.com
+MAINTAINER andreas@lacework.net
 
 # Install python and pip
 RUN apk add --update py2-pip
