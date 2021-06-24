@@ -1,5 +1,5 @@
 # Use Alpine as base
-FROM alpine:3.5
+FROM alpine:3.9
 
 # Maintainer
 MAINTAINER andreas@lacework.net
