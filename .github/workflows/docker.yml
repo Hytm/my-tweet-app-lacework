@@ -39,34 +39,28 @@ jobs:
              password: ${{ secrets.DOCKERHUB_TOKEN }}
          
          - name: Build and push
-            uses: docker/build-push-action@v2
-            with:
-              push: true
-              tags: securethecloud/my-tweet-app-lacework:${{ env.GHA_SHA }},securethecloud/my-tweet-app-lacework:latest
-              
+           uses: docker/build-push-action@v2
+           with:
+             push: true
+             tags: securethecloud/my-tweet-app-lacework:${{ env.GHA_SHA }},securethecloud/my-tweet-app-lacework:latest
+             
+         - name: Configure AWS credentials
+           uses: aws-actions/configure-aws-credentials@v1
+           with:
+             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+             aws-region: eu-central-1
+
          - name: deploy to cluster
-           runs-on: ubuntu-latest
-           steps:
-            - name: Checkout
-              uses: actions/checkout@v2
+           uses: kodermax/kubectl-aws-eks@master
+           env:
+             KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+           with:
+             args: set image deployment/my-tweet-app my-tweet-app=securethecloud/my-tweet-app-lacework:${{ env.GHA_SHA }} -n lacework
 
-            - name: Configure AWS credentials
-              uses: aws-actions/configure-aws-credentials@v1
-              with:
-                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                aws-region: eu-central-1
-
-            - name: deploy to cluster
-              uses: kodermax/kubectl-aws-eks@master
-              env:
-                KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-              with:
-                args: set image deployment/my-tweet-app my-tweet-app=securethecloud/my-tweet-app-lacework:${{ env.GHA_SHA }} -n lacework
-
-            - name: verify deployment
-              uses: kodermax/kubectl-aws-eks@master
-              env:
-                KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-              with:
-                args: rollout status deployment/my-tweet-app -w -n lacework
+         - name: verify deployment
+           uses: kodermax/kubectl-aws-eks@master
+           env:
+             KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+           with:
+             args: rollout status deployment/my-tweet-app -w -n lacework
