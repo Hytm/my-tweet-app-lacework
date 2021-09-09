@@ -28,6 +28,9 @@ jobs:
              image_tag: ${{ env.GHA_SHA }}
              fail_only_if_vulnerabilities_fixable: false
              scan_library_packages: true
+             fail_if_critical_vulnerabilities_found: false
+             fail_if_high_vulnerabilities_found: false
+             fail_if_medium_vulnerabilities_found: false
          
          - name: Login to DockerHub
            uses: docker/login-action@v1 
