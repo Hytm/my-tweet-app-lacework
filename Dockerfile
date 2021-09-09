@@ -18,6 +18,9 @@ RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
 COPY app.py /usr/src/app/
 COPY templates/index.html /usr/src/app/templates/
 
+# Copy pictures which will be randomly selected
+#COPY Pictures /usr/src/app/Pictures
+
 # Expose the app on Flask default (5000)
 EXPOSE 5000
 
