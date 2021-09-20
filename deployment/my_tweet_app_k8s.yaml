@@ -5,6 +5,8 @@ metadata:
   namespace: lacework
   labels:
     app: my-tweet-app
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
 spec:
   type: LoadBalancer
   ports:

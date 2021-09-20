@@ -1,11 +1,11 @@
 # Use Alpine as base
-FROM alpine:edge
+FROM alpine:3.10
 
 # Maintainer
 MAINTAINER andreas@lacework.net
 
 # Install python and pip
-RUN apk add --update py3-pip
+RUN apk add --update py2-pip
 
 # Upgrade pip
 RUN pip install --upgrade pip
