@@ -33,4 +33,4 @@ EXPOSE 5000
 # HEALTHCHECK CMD curl --fail http://localhost:5000/ || exit 1
 
 # Run the application
-CMD ["python", "/usr/src/app/app.py"]
+CMD ["python3", "/usr/src/app/app.py"]
