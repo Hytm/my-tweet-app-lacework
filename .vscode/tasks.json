@@ -4,9 +4,18 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Lacework: Build Docker image for vulnerability scanning",
+            "label": "Lacework: Build Docker image for vulnerability scanning (ARM)",
             "type": "shell",
             "command": "docker buildx build --platform=linux/amd64 -t ${workspaceFolderBasename}:lw-scanner -f Dockerfile ${workspaceFolder}"
+        },
+        {
+            "label": "Lacework: Build Docker image for vulnerability scanning (x86)",
+            "type": "docker-build",
+            "dockerBuild": {
+                "context": "${workspaceFolder}",
+                "dockerfile": "${workspaceFolder}/Dockerfile",
+                "tag": "${workspaceFolderBasename}:lw-scanner"
+            }
         },
         {
             "label": "Lacework: Scan Docker image for vulnerabilities",
@@ -21,11 +30,21 @@
             "problemMatcher": [],
         },
         {
-            "label": "Lacework: Build, scan and delete Docker image for vulnerabilities",
+            "label": "Lacework: Build, scan and delete Docker image for vulnerabilities (x86)",
             "problemMatcher": [],
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Lacework: Build Docker image for vulnerability scanning",
+                "Lacework: Build Docker image for vulnerability scanning (x86)",
+                "Lacework: Scan Docker image for vulnerabilities",
+                "Lacework: Delete Docker image for vulnerability scanning"
+            ]
+        },
+        {
+            "label": "Lacework: Build, scan and delete Docker image for vulnerabilities (ARM)",
+            "problemMatcher": [],
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Lacework: Build Docker image for vulnerability scanning (ARM)",
                 "Lacework: Scan Docker image for vulnerabilities",
                 "Lacework: Delete Docker image for vulnerability scanning"
             ]
