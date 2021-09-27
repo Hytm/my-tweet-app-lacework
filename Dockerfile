@@ -1,11 +1,11 @@
 # Use Alpine as base
-FROM alpine:edge
+FROM alpine:3.10
 
 # Maintainer
 MAINTAINER andreas@lacework.net
 
 # Install python and pip
-RUN apk add --update py3-pip
+RUN apk add --update py2-pip
 
 # Upgrade pip
 RUN pip install --upgrade pip
@@ -34,4 +34,4 @@ EXPOSE 5000
 # HEALTHCHECK CMD curl --fail http://localhost:5000/ || exit 1
 
 # Run the application
-CMD ["python3", "/usr/src/app/app.py"]
+CMD ["python", "/usr/src/app/app.py"]

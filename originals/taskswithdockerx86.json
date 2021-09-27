@@ -5,8 +5,12 @@
     "tasks": [
         {
             "label": "Lacework: Build Docker image for vulnerability scanning",
-            "type": "shell",
-            "command": "docker buildx build --platform=linux/amd64 -t ${workspaceFolderBasename}:lw-scanner -f Dockerfile ${workspaceFolder}"
+            "type": "docker-build",
+            "dockerBuild": {
+                "context": "${workspaceFolder}",
+                "dockerfile": "${workspaceFolder}/Dockerfile",
+                "tag": "${workspaceFolderBasename}:lw-scanner"
+            }
         },
         {
             "label": "Lacework: Scan Docker image for vulnerabilities",
