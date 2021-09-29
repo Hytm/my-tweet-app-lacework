@@ -20,7 +20,7 @@
         {
             "label": "Lacework: Scan Docker image for vulnerabilities",
             "type": "shell",
-            "command": "lw-scanner image evaluate ${workspaceFolderBasename} lw-scanner --scan-library-packages --html --html-file ./templates/lacework-scan.html",
+            "command": "inline-scanner image evaluate ${workspaceFolderBasename} lw-scanner --scan-library-packages --html --html-file ./templates/lacework-scan.html",
             "problemMatcher": [],
         },
         {
