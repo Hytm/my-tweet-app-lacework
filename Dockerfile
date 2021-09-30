@@ -1,8 +1,8 @@
 # Use Alpine as base
-FROM alpine:3.10
+FROM alpine:edge
 
 # Install python and pip
-RUN apk add --update py2-pip
+RUN apk add --update py3-pip
 
 # Upgrade pip
 RUN pip install --upgrade pip
@@ -16,11 +16,8 @@ COPY app.py /usr/src/app/
 COPY templates/index.html /usr/src/app/templates/
 COPY templates/lacework-scan.html /usr/src/app/templates/
 
-# Copy pictures which will be randomly selected
-#COPY Pictures /usr/src/app/Pictures
-
 # Expose the app on Flask default (5000)
 EXPOSE 5000
 
 # Run the application
-CMD ["python", "/usr/src/app/app.py"]
+CMD ["python3", "/usr/src/app/app.py"]
