@@ -1,8 +1,8 @@
 # Use Alpine as base
-FROM alpine:edge
+FROM alpine:3.10
 
 # Install python and pip
-RUN apk add --update py3-pip
+RUN apk add --update py2-pip
 
 # Upgrade pip
 RUN pip install --upgrade pip
@@ -20,4 +20,4 @@ COPY templates/lacework-scan.html /usr/src/app/templates/
 EXPOSE 5000
 
 # Run the application
-CMD ["python3", "/usr/src/app/app.py"]
+CMD ["python", "/usr/src/app/app.py"]
